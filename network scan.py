@@ -12,7 +12,7 @@ print(custom_fig.renderText('Port Scan!!'))
 
 #Enter target IP/FQDN and Port number to scan.
 remote_server_ip = input("Enter the remote host IP or FQDN \n")
-remote_server_port = int(input("Enter the port number \n"))
+remote_server_port = int(input("Enter the port number(s) \n"))
 
 #Timestamp of scan initiated.
 start_time = datetime.now()
@@ -22,11 +22,10 @@ print ("Scanning started at:" + str(datetime.now()))
 def time_calculate(start_time):
     end_time = datetime.now()
     total_time = end_time - start_time
-    if start_time > end_time:
-        print ("Total time taken for the scan to complete is:" + str(start_time))
-    else:
-        print("Total time taken for the scan to complete is:" + str(total_time))
-
+    total_time_in_seconds = total_time.total_seconds()
+    if not start_time > end_time:
+        print("Total time taken for the scan to complete is: " + str(total_time_in_seconds) + " seconds." )
+      
 #Checking if the port is open or closed.
 def connection_initiated():
     try:
