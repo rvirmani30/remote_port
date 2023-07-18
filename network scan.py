@@ -12,7 +12,7 @@ print(custom_fig.renderText('Port Scan!!'))
 
 #Enter target IP/FQDN and Port number to scan.
 remote_server_ip = input("Enter the remote host IP or FQDN \n")
-remote_server_port = int(input("Enter the port number(s) \n"))
+remote_server_port = int(input("Enter the port number \n"))
 
 #Timestamp of scan initiated.
 start_time = datetime.now()
