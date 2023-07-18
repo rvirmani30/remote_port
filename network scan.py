@@ -47,6 +47,5 @@ def connection_initiated():
     #Calling time_calculate(). This function will calculate the total time taken for the scan to complete.
     time_calculate(start_time)
     
-
 if __name__ == '__main__':
     connection_initiated()
