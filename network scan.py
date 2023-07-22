@@ -28,9 +28,9 @@ def connection_initiated(host, port):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.connect((host, port))
         if sock.connect ==0:
-            print("Port is Open")
+            print(host,":",port, "is open")
         else:
-            print("Port is closed")
+            print(host,":",port, "is closed")
             sock.close()
     except socket.error:
         print("Couldn't connect to host on the specified port",port)
@@ -43,20 +43,25 @@ def scanparser():
     #setup argument parsing
     scan_parser = argparse.ArgumentParser(description='Port Scan initiated.')
     scan_parser.add_argument('-H', '--Host', help='Host to scan', type=str, required=True, dest='Host')
-    scan_parser.add_argument('-P', '--Port', help='Port range to scan', type=int, required=True, dest='Port')
+    scan_parser.add_argument('-P', '--Port', help='Port range to scan', type=str, required=True, dest='Dport')
     scan_parser.add_argument('-U', help='UDP protocol', type=str)
     scan_parser.add_argument('-T', help='TCP Protocol', type=str)
     argparse_call = scan_parser.parse_args()
     host = argparse_call.Host
-    port = argparse_call.Port
+    port = argparse_call.Dport
+    
+    if ',' in port:
+        range_port = port.split(',')
+        connect_via_multiple_port(host,range_port)
+    else:
+        connection_initiated(host, int(port))
 
-    connection_initiated(host,port)
+def connect_via_multiple_port(host,range_port):
+    for port in range_port:
+        connection_initiated(host,int(port))
+
+
 
 if __name__ == '__main__':
     scanparser()
     time_calculate(start_time)
-
-# host, port_range = argparse.host, argparse.port_range
-# start_port, end_port = port_range.split(",")
-# start_port, end_port = int(start_port), int(end_port)
-# ports = [p for p in range(start_port, end_port)]import socket
